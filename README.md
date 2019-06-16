@@ -1,5 +1,5 @@
 # robo-advisor
-Robo advisor application
+Robo advisor
 
 ## Prerequisites
 
@@ -19,13 +19,12 @@ cd robo_advisor
 
 #Setup 
 
-Create a python file called robo_advisor.py and a text file called requirements.txt. 
+Create a folder called 'app' and place a python file called robo_advisor.py in it. In the base repo create a text file called requirements.txt. 
 
 In the robo_advisor.py file, paste the following code:
 
-# app/robo_advisor.py
-
 ```sh
+# app/robo_advisor.py
 print("-------------------------")
 print("SELECTED SYMBOL: XYZ")
 print("-------------------------")
@@ -44,7 +43,7 @@ print("HAPPY INVESTING!")
 print("-------------------------")
 ```
 
-In the requirements.txt, paste the follow text:
+In the requirements.txt, paste the following text:
 
 ```sh
 requests
