@@ -1,5 +1,5 @@
 # robo-advisor
-Shopping cart application for local grocery store
+Robo advisor application
 
 ## Prerequisites
 
