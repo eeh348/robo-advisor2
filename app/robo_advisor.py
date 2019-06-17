@@ -1,7 +1,19 @@
 # app/robo_advisor.py
 
+while True:
+    #ask user for stock symbol
+    user_input = input("Please input a product company stock symbol:")
+    
+    if user_input.isalpha() and len(user_input) < 6:
+        user_input = user_input.upper()
+        break
+    else:
+        print("Input must be A-Z characters only and less than or equal to 5 characters")
+
+print(user_input)
+
 print("-------------------------")
-print("SELECTED SYMBOL: XYZ")
+print("SELECTED SYMBOL: " + user_input)
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT: 2018-02-20 02:00pm")
