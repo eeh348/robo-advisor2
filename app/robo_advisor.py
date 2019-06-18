@@ -45,15 +45,17 @@ last_close = tsd[latest_date]['4. close']
 recent_high = max(highs)
 recent_low = min(lows)
 
-while True:
-    #ask user for stock symbol
-    user_input = input("Please input a product company stock symbol:")
-    
-    if user_input.isalpha() and len(user_input) < 6:
-        user_input = user_input.upper()
-        break
-    else:
-        print("Input must be A-Z characters only and less than or equal to 5 characters")
+#while True:
+#    #ask user for stock symbol
+#    user_input = input("Please input a product company stock symbol:")
+#    
+#    if user_input.isalpha() and len(user_input) < 6:
+#        user_input = user_input.upper()
+#        break
+#    else:
+#        print("Input must be A-Z characters only and less than or equal to 5 characters")
+
+user_input = "AMAZ"
 
 print(user_input)
 
@@ -63,12 +65,12 @@ print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT: 2018-02-20 02:00pm")
 print("-------------------------")
-print(f"LATEST DAY: {last_close}")
-print(f"LATEST CLOSE: {last_close}") #format $
-print(f"RECENT HIGH: {recent_high}") #format $
-print(f"RECENT LOW: {recent_low}") #format $
+print(f"LATEST DAY: {last_refresh}")
+print(f"LATEST CLOSE: {to_usd(float(last_close))} ")
+print(f"RECENT HIGH: {to_usd(float(recent_high))}")
+print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
-print("RECOMMENDATION: BUY!")
+print("RECOMMENDATION: BUY!") 
 print("RECOMMENDATION REASON: TODO")
 print("-------------------------")
 print("HAPPY INVESTING!")
