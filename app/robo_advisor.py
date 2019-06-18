@@ -1,5 +1,23 @@
 # app/robo_advisor.py
 
+import requests
+import json 
+
+request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo"
+
+response = requests.get(request_url)
+
+#print(type(response)) #<class 'requests.models.Response'>
+#print(response.status_code) #type 200
+#print(response.text) #string
+
+parsed_response = json.loads(response.text )
+
+breakpoint()
+
+def get_stock_price(stock):
+    pass
+
 while True:
     #ask user for stock symbol
     user_input = input("Please input a product company stock symbol:")
