@@ -11,10 +11,19 @@ response = requests.get(request_url)
 #print(response.status_code) #type 200
 #print(response.text) #string
 
-parsed_response = json.loads(response.text )
+parsed_response = json.loads(response.text)
 
-#capture last response
+tsd = parsed_response['Time Series (Daily)']
+
+dates = list(tsd.keys())  #may need to update to sort for latest date
+
+latest_date = dates[0]
+
+#capture variables
 last_refresh = parsed_response["Meta Data"]['3. Last Refreshed']
+last_close = tsd[last_refresh]['4. close']
+recent_high = tsd[last_refresh]['2. high']
+recent_low = tsd[last_refresh]['3. low']
 
 breakpoint()
 
@@ -40,9 +49,9 @@ print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT: 2018-02-20 02:00pm")
 print("-------------------------")
 print(f"LATEST DAY: {last_refresh}")
-print("LATEST CLOSE: $100,000.00")
-print("RECENT HIGH: $101,000.00")
-print("RECENT LOW: $99,000.00")
+print(f"LATEST CLOSE: {last_close}") #format $
+print(f"RECENT HIGH: {recent_high}") #format $
+print(f"RECENT LOW: {recent_low}") #format $
 print("-------------------------")
 print("RECOMMENDATION: BUY!")
 print("RECOMMENDATION REASON: TODO")
