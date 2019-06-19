@@ -2,6 +2,8 @@
 
 import requests
 import json
+import csv
+import os
 
 #define functions
 def to_usd(price):
@@ -32,7 +34,7 @@ last_refresh = parsed_response["Meta Data"]['3. Last Refreshed']
 highs = []
 lows = []
 
-#compile list of high prices
+#compile list of high prices / update to compile the values as a list
 for d in dates:
     high_price = tsd[d]['2. high']
     highs.append(float(high_price))
@@ -57,6 +59,26 @@ recent_low = min(lows)
 
 user_input = "AMAZ"
 
+
+csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv") #try to add multiple inputs later
+
+with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
+    writer = csv.DictWriter(csv_file, fieldnames=["timestamp","open","high", "low", "close","volume"])
+    writer.writeheader() # uses fieldnames set above
+    #breakpoint()
+    for d in dates:
+        daily_prices = tsd[d]
+        writer.writerow({
+            "timestamp": d,
+            "open": daily_prices["1. open"]),
+            "high": daily_prices["2. high"],
+            "low": daily_prices["3. low"],
+            "close": daily_prices["4. close"],
+            "volume": daily_prices["5. volume"]
+        })
+
+
+
 print(user_input)
 
 print("-------------------------")
@@ -72,6 +94,8 @@ print(f"RECENT LOW: {to_usd(float(recent_low))}")
 print("-------------------------")
 print("RECOMMENDATION: BUY!") 
 print("RECOMMENDATION REASON: TODO")
+print("-------------------------")
+print(f"WRITING DATA TO CSV... {csv_file_path} ")
 print("-------------------------")
 print("HAPPY INVESTING!")
 print("-------------------------")
