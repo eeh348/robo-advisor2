@@ -4,21 +4,46 @@ import requests
 import json
 import csv
 import os
+from dotenv import load_dotenv
 
 #define functions
 def to_usd(price):
     price_usd = "${:,.2f}".format(price)
     return price_usd
 
-request_url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo"
+#capture keys
+load_dotenv()
+my_cred = os.environ.get("ALPHAVANTAGE_API_KEY")
 
-response = requests.get(request_url)
+while True:
+    #ask user for stock symbol
+    symbol = input("Please input a product company stock symbol:")
+    request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={symbol}&apikey={my_cred}"
+    response = requests.get(request_url)
+
+    if symbol.isalpha() and len(symbol) < 6 and response.status_code == 200:
+        symbol = symbol.upper()
+        break
+    else:
+        print("Input must be A-Z characters only and less than or equal to 5 characters")
+
+#user_input = "MSFT"
 
 #print(type(response)) #<class 'requests.models.Response'>
 #print(response.status_code) #type 200
 #print(response.text) #string
 
 parsed_response = json.loads(response.text)
+
+#breakpoint()
+
+#valid code
+if parsed_response.keys() == ['Error Message']:
+    print(f"{symbol} is not a valid stock symbol. Exiting...")
+    exit()
+else:
+    pass
+    
 
 tsd = parsed_response['Time Series (Daily)']
 
@@ -47,19 +72,6 @@ last_close = tsd[latest_date]['4. close']
 recent_high = max(highs)
 recent_low = min(lows)
 
-#while True:
-#    #ask user for stock symbol
-#    user_input = input("Please input a product company stock symbol:")
-#    
-#    if user_input.isalpha() and len(user_input) < 6:
-#        user_input = user_input.upper()
-#        break
-#    else:
-#        print("Input must be A-Z characters only and less than or equal to 5 characters")
-
-user_input = "AMAZ"
-
-
 csv_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "prices.csv") #try to add multiple inputs later
 
 with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writing"
@@ -70,19 +82,17 @@ with open(csv_file_path, "w") as csv_file: # "w" means "open the file for writin
         daily_prices = tsd[d]
         writer.writerow({
             "timestamp": d,
-            "open": daily_prices["1. open"]),
+            "open": daily_prices["1. open"],
             "high": daily_prices["2. high"],
             "low": daily_prices["3. low"],
             "close": daily_prices["4. close"],
             "volume": daily_prices["5. volume"]
         })
 
-
-
-print(user_input)
+#print(symbol)
 
 print("-------------------------")
-print("SELECTED SYMBOL: " + user_input)
+print("SELECTED SYMBOL: " + symbol)
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
 print("REQUEST AT: 2018-02-20 02:00pm")
