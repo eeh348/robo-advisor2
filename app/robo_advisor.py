@@ -1,10 +1,14 @@
 # app/robo_advisor.py
 
 import requests
+import datetime
 import json
 import csv
 import os
 from dotenv import load_dotenv
+
+#fine time
+now = datetime.datetime.now()
 
 #define functions
 def to_usd(price):
@@ -15,6 +19,9 @@ def to_usd(price):
 load_dotenv()
 my_cred = os.environ.get("ALPHAVANTAGE_API_KEY")
 
+#Create list for multiple user inputs
+symbol_list = []
+
 while True:
     #ask user for stock symbol
     symbol = input("Please input a product company stock symbol:")
@@ -23,7 +30,7 @@ while True:
 
     if symbol.isalpha() and len(symbol) < 6 and response.status_code == 200:
         symbol = symbol.upper()
-        break
+        
     else:
         print("Input must be A-Z characters only and less than or equal to 5 characters")
 
@@ -35,15 +42,14 @@ while True:
 
 parsed_response = json.loads(response.text)
 
-#breakpoint()
+#check to see if dictionary returns an error message
+valid_symbol = str(parsed_response.keys())
 
-#valid code
-if parsed_response.keys() == ['Error Message']:
+if valid_symbol == "dict_keys(['Error Message'])":
     print(f"{symbol} is not a valid stock symbol. Exiting...")
     exit()
 else:
     pass
-    
 
 tsd = parsed_response['Time Series (Daily)']
 
@@ -95,7 +101,7 @@ print("-------------------------")
 print("SELECTED SYMBOL: " + symbol)
 print("-------------------------")
 print("REQUESTING STOCK MARKET DATA...")
-print("REQUEST AT: 2018-02-20 02:00pm")
+print("REQUEST AT: " + str(now.strftime("%Y-%m-%d %H:%M %p")))
 print("-------------------------")
 print(f"LATEST DAY: {last_refresh}")
 print(f"LATEST CLOSE: {to_usd(float(last_close))} ")
