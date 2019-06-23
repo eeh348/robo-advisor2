@@ -66,3 +66,21 @@ Use Anaconda to create and activate a new virtual environment, perhaps called "s
 conda create -n stocks-env python=3.7 # (first time only)
 conda activate stocks-env
 ```
+
+Install the following modules
+
+```sh
+requests
+datetime
+json
+csv
+os
+statistics
+```
+
+
+Install the following packages
+
+```sh
+from dotenv import load_dotenv
+```
