@@ -17,9 +17,6 @@ cd robo_advisor
 
 > NOTE: subsequent usage and testing commands assume you are running them from the repository's root directory.
 
-## Setup 
-
-For the repository and clone to your selected environment.
 
 ## Installation
 
