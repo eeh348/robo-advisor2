@@ -1,8 +1,6 @@
 requests
 python-dotenv
-requests
 datetime
 json
 csv
-os
 statistics
