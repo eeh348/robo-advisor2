@@ -17,38 +17,11 @@ cd robo_advisor
 
 > NOTE: subsequent usage and testing commands assume you are running them from the repository's root directory.
 
-#Setup 
+## Setup 
 
-Create a folder called 'app' and place a python file called robo_advisor.py in it. In the base repo create a text file called requirements.txt. 
+For the repository and clone to your selected environment.
 
-In the robo_advisor.py file, paste the following code:
-
-```sh
-# app/robo_advisor.py
-print("-------------------------")
-print("SELECTED SYMBOL: XYZ")
-print("-------------------------")
-print("REQUESTING STOCK MARKET DATA...")
-print("REQUEST AT: 2018-02-20 02:00pm")
-print("-------------------------")
-print("LATEST DAY: 2018-02-20")
-print("LATEST CLOSE: $100,000.00")
-print("RECENT HIGH: $101,000.00")
-print("RECENT LOW: $99,000.00")
-print("-------------------------")
-print("RECOMMENDATION: BUY!")
-print("RECOMMENDATION REASON: TODO")
-print("-------------------------")
-print("HAPPY INVESTING!")
-print("-------------------------")
-```
-
-In the requirements.txt, paste the following text:
-
-```sh
-requests
-python-dotenv
-```
+## Installation
 
 From inside the virtual environment, install package dependencies:
 
@@ -57,8 +30,6 @@ pip install -r requirements.txt
 pip install pytest
 
 ```
-
-## Installation
 
 Use Anaconda to create and activate a new virtual environment, perhaps called "stocks-env":
 
@@ -78,9 +49,18 @@ os
 statistics
 ```
 
-
 Install the following packages
 
 ```sh
 from dotenv import load_dotenv
 ```
+
+## API Requirements
+
+Create .env file in the directory and create variable called ALPHAVANTAGE_API_KEY. Your program should read the API Key from this environment variable at run-time.
+
+```sh
+ALPHAVANTAGE_API_KEY="abc123"
+```
+
+To obtain an API key, go to https://www.alphavantage.co/support/#api-key
